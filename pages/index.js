@@ -1,5 +1,6 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
 import { getAllFilesMetadata } from "../lib/mdx";
@@ -24,10 +25,16 @@ export default function Home({ posts }) {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          {posts.map((post) => (
+            <Link
+              key={post.slug} 
+              href={`/${post.slug}`} 
+              className={styles.card}>
+                <h2>{post.title} &rarr;</h2>
+                <p>{post.date}</p>
+            </Link>
+          ))}
+
         </div>
       </main>
 
@@ -51,6 +58,6 @@ export async function getStaticProps(){
   const posts = await getAllFilesMetadata()
   console.log(posts)
   return {
-    props : {posts}
+    props : { posts }
   }
 }
