@@ -19,4 +19,10 @@ export async function getStaticPaths(){
             slug: post.replace(/\.mdx/,""),
         },
     }));
+
+    return {
+        paths,
+        fallback: false
+    }
+
 }
